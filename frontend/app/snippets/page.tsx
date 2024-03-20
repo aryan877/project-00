@@ -12,15 +12,21 @@ const API_ORIGIN =
 
 function Snippets() {
   const [snippets, setSnippets] = useState<Snippet[]>([]);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   useEffect(() => {
     fetch(`${API_ORIGIN}/api/snippets`)
       .then((response) => response.json())
-      .then((data: Snippet[]) => setSnippets(data))
+      .then((data: Snippet[]) => {
+        setSnippets(data);
+
+      })
       .catch((error: Error) => {
         console.error("Error fetching snippets:", error);
         toast.error("Failed to fetch snippets");
-      });
+      }).finally(()=>{
+        setLoading(false); 
+      })
   }, []);
 
   const runCode = async (id: number) => {
@@ -120,7 +126,11 @@ function Snippets() {
             Total Submissions: {snippets.length}
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-4">
+        {loading ? ( 
+          <div className="text-center text-xl text-white">
+            Loading snippets...
+          </div>
+        ) : (<div className="grid grid-cols-1 gap-4">
           {snippets.length > 0 ? (
             <div className="grid grid-cols-1 gap-4">
               {snippets.map((snippet, index) => (
@@ -139,7 +149,7 @@ function Snippets() {
               There are no submissions yet.
             </div>
           )}
-        </div>
+        </div>)}
       </div>
     </div>
   );

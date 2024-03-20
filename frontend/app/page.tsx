@@ -15,7 +15,7 @@ const formSchema = z.object({
 });
 
 const API_ORIGIN =
-  process.env.NEXT_PUBLIC_EXPRESS_API_ORIGIN || "http://localhost:80";
+  process.env.NEXT_PUBLIC_EXPRESS_API_ORIGIN || "http://localhost:3001";
 
 type FormData = z.infer<typeof formSchema>;
 

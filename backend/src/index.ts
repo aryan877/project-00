@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import Redis from "ioredis";
 import { ResultSetHeader } from "mysql2";
 dotenv.config();
-import { Snippet } from "../types/Snippet";
+import { Snippet } from "./types/Snippet";
 import axios from "axios";
 
 const app = express();

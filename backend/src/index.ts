@@ -3,10 +3,10 @@ import bodyParser from "body-parser";
 import mysql, { Pool } from "mysql2";
 import cors from "cors";
 import dotenv from "dotenv";
-const Redis = require("ioredis");
+import Redis from "ioredis";
 import { ResultSetHeader } from "mysql2";
 dotenv.config();
-import { Snippet } from "./types/Snippet";
+import { Snippet } from "../types/Snippet";
 import axios from "axios";
 
 const app = express();
@@ -20,7 +20,7 @@ const db: Pool = mysql.createPool({
   connectTimeout: 10000,
 });
 
-const redisClient = new Redis(process.env.REDIS_URI);
+const redisClient = new Redis(process.env.REDIS_URI!);
 
 app.post("/api/snippets", async (req: Request, res: Response) => {
   const { username, codeLanguage, stdin, sourceCode } = req.body;

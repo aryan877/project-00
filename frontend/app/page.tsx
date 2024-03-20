@@ -14,6 +14,9 @@ const formSchema = z.object({
   sourceCode: z.string().min(1, "Source code is required"),
 });
 
+const API_ORIGIN =
+  process.env.NEXT_PUBLIC_EXPRESS_API_ORIGIN || "http://localhost:80";
+
 type FormData = z.infer<typeof formSchema>;
 
 const examples = {
@@ -46,7 +49,7 @@ export default function Home() {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     try {
-      const response = await fetch("http://localhost:3001/api/snippets", {
+      const response = await fetch(`${API_ORIGIN}/api/snippets`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
